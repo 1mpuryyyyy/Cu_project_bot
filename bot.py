@@ -5,7 +5,7 @@ from aiogram.fsm.storage.memory import MemoryStorage
 from handlers.start import router as start_router
 from handlers.weather import router as weather_router
 
-TOKEN = 'YOR_KEY'
+TOKEN = 'YOUR_API_TOKEN'
 
 
 async def run():

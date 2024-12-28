@@ -36,6 +36,7 @@ async def weather_start(message: Message, state: FSMContext):
 @router.message(WeatherFSM.cities)
 async def process_cities(message: Message, state: FSMContext):
     cities = message.text.split("\n")
+    print(cities)
     if len(cities) < 2:
         await message.answer("Необходимо ввести хотя бы начальный и конечный города.")
         return
@@ -53,11 +54,19 @@ async def process_cities(message: Message, state: FSMContext):
 
 
 # Обработка выбора времени (дней)
-@router.callback_query(DaysCallback.filter(), StateFilter(WeatherFSM.time))
+@router.callback_query(DaysCallback.filter())
 async def process_days(callback: CallbackQuery, callback_data: DaysCallback, state: FSMContext):
     data = await state.get_data()
     cities = data.get("cities")
+
+    if not cities:  # Проверка на наличие городов
+        await callback.message.answer("Произошла ошибка. Пожалуйста, начните заново.")
+        await state.clear()
+        return
+
+    print(cities)
     days = callback_data.days
+    print(days)
 
     results = []
     for city in cities:
@@ -88,3 +97,4 @@ async def process_days(callback: CallbackQuery, callback_data: DaysCallback, sta
     print("Results to send:", results)
     await callback.message.answer("\n\n".join(results))
     await state.clear()
+
