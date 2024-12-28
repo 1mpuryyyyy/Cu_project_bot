@@ -1,7 +1,7 @@
 import requests
 import os
 
-# API_KEY = os.getenv('API')
+
 API_KEY = "ZCNtRKg0eFKVsNOjU9AyGGr3o83hZyBp"
 
 

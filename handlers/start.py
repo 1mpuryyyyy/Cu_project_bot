@@ -1,14 +1,14 @@
 from aiogram import Router, F
 from aiogram.filters import Command
-from aiogram.types import Message
+from aiogram.types import Message, ReplyKeyboardMarkup, KeyboardButton
 
 router = Router(name='start')
 
-
 @router.message(F.text, Command('start'))
 async def start(message: Message):
-    await message.answer('Я могу помочь определить погоду во время поездки,\n'
-                         'напиши /weather чтобы узнать погоду')
+    await message.answer('Я могу помочь определить погоду во время поездки.\n'
+                         'Нажми /weather, чтобы узнать погоду!')
+
 
 
 @router.message(F.text, Command("help"))
